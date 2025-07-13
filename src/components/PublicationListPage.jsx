@@ -93,7 +93,7 @@ export default function PublicationListPage() {
                   <img
                     src={pub.coverUrl}
                     alt={`Sampul ${pub.title}`}
-                    className="h-24 w-auto object-cover rounded shadow-md"
+                    className="h-24 w-20 object-cover rounded shadow-md"
                     onError={(e) => {
                       e.target.onerror = null;
                       e.target.src =
@@ -108,7 +108,7 @@ export default function PublicationListPage() {
                       className="px-3 py-1 text-sm font-medium text-white bg-yellow-400 rounded hover:bg-yellow-500 transition duration-200"
                       disabled={deleteLoading === pub.id}
                     >
-                      Edit
+                      Change
                     </button>
                     <button
                       onClick={() => handleDeleteClick(pub)}
@@ -149,7 +149,7 @@ export default function PublicationListPage() {
                 className="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 rounded hover:bg-gray-200 transition duration-200"
                 disabled={deleteLoading === publicationToDelete?.id}
               >
-                Batal
+                Cancel
               </button>
               <button
                 onClick={handleDeleteConfirm}
