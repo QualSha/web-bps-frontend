@@ -78,7 +78,7 @@ export default function PublicationListPage() {
                   <img
                     src={pub.coverUrl}
                     alt={`Sampul ${pub.title}`}
-                    className="h-24 w-20 object-cover rounded shadow-md"
+                    className="h-28 w-20 object-cover rounded shadow-md"
                     onError={(e) => {
                       e.target.onerror = null;
                       e.target.src =
