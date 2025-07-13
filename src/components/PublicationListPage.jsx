@@ -171,7 +171,7 @@ export default function PublicationListPage() {
       )}
 
       {/* Empty State */}
-      {publications.length === 0 && (
+      {/* {publications.length === 0 && (
         <div className="text-center py-12">
           <div className="text-gray-400 text-6xl mb-4">📚</div>
           <h3 className="text-lg font-medium text-gray-800 mb-2">
@@ -181,7 +181,7 @@ export default function PublicationListPage() {
             Publikasi yang ditambahkan akan tampil di sini.
           </p>
         </div>
-      )}
+      )} */}
     </div>
   );
 }
