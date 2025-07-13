@@ -6,37 +6,22 @@ import { usePublications } from "../hooks/usePublications";
 export default function PublicationListPage() {
   const { publications, deletePublication } = usePublications();
   const navigate = useNavigate();
-  const [deleteLoading, setDeleteLoading] = useState(null); // Track loading state per publication
-  const [showConfirmModal, setShowConfirmModal] = useState(false);
-  const [publicationToDelete, setPublicationToDelete] = useState(null);
+  const [deleteLoading, setDeleteLoading] = useState(null); // Lacak status loading per publikasi
 
   const handleEdit = (pub) => {
     navigate(`/publications/edit/${pub.id}`);
   };
 
-  const handleDeleteClick = (pub) => {
-    setPublicationToDelete(pub);
-    setShowConfirmModal(true);
-  };
-
-  const handleDeleteConfirm = async () => {
-    if (!publicationToDelete) return;
-    
-    setDeleteLoading(publicationToDelete.id);
+  // Fungsi handleDelete yang disederhanakan, langsung dijalankan saat tombol diklik
+  const handleDelete = async (publicationId) => {
+    setDeleteLoading(publicationId);
     try {
-      await deletePublication(publicationToDelete.id);      
-      setShowConfirmModal(false);
-      setPublicationToDelete(null);
+      await deletePublication(publicationId);
     } catch (error) {
-      console.error("Error deleting publication:", error);    
+      console.error("Error deleting publication:", error);
     } finally {
-      setDeleteLoading(null);
+      setDeleteLoading(null); // Reset status loading setelah selesai
     }
-  };
-
-  const handleDeleteCancel = () => {
-    setShowConfirmModal(false);
-    setPublicationToDelete(null);
   };
 
   return (
@@ -87,7 +72,7 @@ export default function PublicationListPage() {
                 </td>
                 <td className="px-6 py-4 text-gray-600">{pub.releaseDate}</td>
                 <td className="px-6 py-4 text-gray-600">
-                  {pub.description || 'Tidak ada deskripsi'}
+                  {pub.description || "Tidak ada deskripsi"}
                 </td>
                 <td className="px-6 py-4 flex justify-center items-center">
                   <img
@@ -111,7 +96,8 @@ export default function PublicationListPage() {
                       Change
                     </button>
                     <button
-                      onClick={() => handleDeleteClick(pub)}
+                      // onClick sekarang langsung memanggil handleDelete
+                      onClick={() => handleDelete(pub.id)}
                       className="px-3 py-1 text-sm font-medium text-white bg-red-500 rounded hover:bg-red-600 transition duration-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center"
                       disabled={deleteLoading === pub.id}
                     >
@@ -121,7 +107,7 @@ export default function PublicationListPage() {
                           Loading...
                         </>
                       ) : (
-                        'Delete'
+                        "Delete"
                       )}
                     </button>
                   </div>
@@ -132,44 +118,7 @@ export default function PublicationListPage() {
         </table>
       </div>
 
-      {/* Modal Konfirmasi Delete */}
-      {showConfirmModal && (
-        <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-50">
-          <div className="bg-white rounded-lg p-6 max-w-md w-full mx-4">
-            <h3 className="text-lg font-semibold text-gray-800 mb-4">
-              Hapus Publikasi?
-            </h3>
-            {/* <p className="text-gray-600 mb-4">
-              Apakah Anda yakin ingin menghapus publikasi "{publicationToDelete?.title}"? 
-              Tindakan ini tidak dapat dibatalkan.
-            </p> */}
-            <div className="flex justify-end space-x-3">
-              <button
-                onClick={handleDeleteCancel}
-                className="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 rounded hover:bg-gray-200 transition duration-200"
-                disabled={deleteLoading === publicationToDelete?.id}
-              >
-                Cancel
-              </button>
-              <button
-                onClick={handleDeleteConfirm}
-                className="px-4 py-2 text-sm font-medium text-white bg-red-500 rounded hover:bg-red-600 transition duration-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center"
-                disabled={deleteLoading === publicationToDelete?.id}
-              >
-                {deleteLoading === publicationToDelete?.id ? (
-                  <>
-                    <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
-                    Menghapus...
-                  </>
-                ) : (
-                  'Delete'
-                )}
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
-
+      {/* Kode Modal Konfirmasi Delete telah dihapus */}
     </div>
   );
 }
