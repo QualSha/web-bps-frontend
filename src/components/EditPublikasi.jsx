@@ -13,7 +13,7 @@ export default function EditPublikasi() {
   const [title, setTitle] = useState("");
   const [releaseDate, setReleaseDate] = useState("");
   const [coverFile, setCoverFile] = useState(null);
-  const [coverUrl, setCoverUrl] = useState("");
+  const [coverUrl, setCoverUrl] = useState("");     
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [description, setDescription] = useState(""); 
@@ -179,6 +179,20 @@ export default function EditPublikasi() {
           </div>
         )}
 
+        {/* Preview gambar baru */}
+        {coverFile && (
+          <div className="mb-4">
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              Preview Sampul Baru
+            </label>
+            <img
+              src={URL.createObjectURL(coverFile)}
+              alt="Preview Sampul Baru"
+              className="h-32 w-auto object-cover rounded shadow-md"
+            />
+          </div>
+        )}
+
         <div>
           <label htmlFor="cover" className="block text-sm font-medium text-gray-700 mb-1">
             Sampul Baru (Gambar)
@@ -195,20 +209,6 @@ export default function EditPublikasi() {
             Pilih gambar baru jika ingin mengubah sampul
           </p>
         </div>
-
-        {/* Preview gambar baru */}
-        {coverFile && (
-          <div className="mb-4">
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              Preview Sampul Baru
-            </label>
-            <img
-              src={URL.createObjectURL(coverFile)}
-              alt="Preview Sampul Baru"
-              className="h-32 w-auto object-cover rounded shadow-md"
-            />
-          </div>
-        )}
 
         <div className="flex justify-end space-x-4">
           <button
